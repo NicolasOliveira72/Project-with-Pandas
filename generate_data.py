@@ -33,3 +33,36 @@ GENDER = ["male", "female"]
 
 compras = []
 
+for x in range (2000):
+    store = random.choice(STORES)
+    seller = random.choice(store["vendedores"])
+    product = random.choice(PRODUCTS)
+    purchase_time = datetime.now() - timedelta(
+        days=random.randint(1, 365),
+        hours=random.randint(-5, 5),
+        minutes=random.randint(-30, 30)
+    )
+
+    client_gender = random.choice(GENDER)
+    cliente_name = names.get_full_name(client_gender)
+    payment_method = random.choice(PAY_MODE)
+
+    compras.append({
+        "Data": purchase_time,
+        "Id": 0,
+        "Loja": store["cidade"],
+        "Vendedor": seller,
+        "Produto": product["nome"],
+        "Nome do cliente": cliente_name.replace("female", "femenino").replace("male", "masculino"),
+        "Fora de pagamento": payment_method
+    })
+
+df_compras = pd.DataFrame(compras).set_index("Data").sort_index()
+df_compras["Id"] = [x for x in range(len(df_compras))]
+
+df_lojas = pd.DataFrame(STORES)
+df_produtos = pd.DataFrame(PRODUCTS)
+
+print(df_lojas)
+print(df_compras)
+print(df_produtos)
