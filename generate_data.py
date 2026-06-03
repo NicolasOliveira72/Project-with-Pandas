@@ -4,8 +4,8 @@ from pathlib import Path
 import pandas as pd
 import names
 
-dataset = Path(__file__).parent / "datasets"
-dataset.mkdir(parents=True, exist_ok=True)
+datasets = Path(__file__).parent / "datasets"
+datasets.mkdir(parents=True, exist_ok=True)
 
 STORES = [
     {"estado": "SP", "cidade": "São Paulo", 
@@ -66,3 +66,11 @@ df_produtos = pd.DataFrame(PRODUCTS)
 print(df_lojas)
 print(df_compras)
 print(df_produtos)
+
+df_compras.to_csv(datasets / "compras.csv", decimal=",", sep=";")
+df_produtos.to_csv(datasets / "produtos.csv", decimal=",", sep=";")
+df_lojas.to_csv(datasets / "lojas.csv", decimal=",", sep=";")
+
+df_compras.to_excel(datasets / "compras.xlsx")
+df_produtos.to_excel(datasets / "produtos.xlsx")
+df_lojas.to_excel(datasets / "lojas.xlsx")
